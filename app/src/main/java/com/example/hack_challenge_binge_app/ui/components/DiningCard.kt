@@ -34,7 +34,6 @@ fun DiningCard(
             .clickable { onClick() }
             .padding(20.dp)
             .fillMaxWidth()
-            .aspectRatio(1f) // Make it square-ish
     ) {
         Column(
             verticalArrangement = Arrangement.Bottom,

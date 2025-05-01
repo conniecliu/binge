@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -68,6 +69,14 @@ fun HomeScreen(
                 fontSize = 24.sp
             )
             Text(text = "TODO: this does not work yet!")
+
+            Button(
+                onClick = {
+                    navHostController.navigate("swipe")
+                }
+            ) {
+                Text(text = "Match")
+            }
         }
 
         LazyVerticalGrid(

@@ -66,6 +66,8 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation("androidx.compose.material:material:<latest_version>")
+
 
 }
 
