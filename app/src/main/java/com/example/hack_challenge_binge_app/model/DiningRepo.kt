@@ -16,15 +16,39 @@ class DiningRepo @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private val foodItems = listOf(
-        FoodItem("Pizza", android.R.drawable.ic_menu_camera, "Bethe Jansen", "Grill"),
-        FoodItem("Salad", android.R.drawable.ic_menu_gallery, "North Star", "Salad"),
-        FoodItem("Burger", R.drawable.binge_burger, "North Star", "Grill",),
-        FoodItem("Tacos", android.R.drawable.ic_menu_call, "Bethe Jansen", "Chef's Table"),
-        FoodItem("Sushi", android.R.drawable.ic_menu_compass, "Risley", "Wok"),
-        FoodItem("Curry", android.R.drawable.ic_dialog_info, "Risley", "Chef's Table"),
+        FoodItem("Pizza", R.drawable.pizza, "Morrison", "Pizza Station"),
+        FoodItem("Caesar Salad", R.drawable.caesar_salad, "Morrison", "Salad Bar"),
+        FoodItem("Stir-fry", R.drawable.stir_fry, "Morrison", "Iron Grill"),
+
+        FoodItem("Pho", R.drawable.pho, "North Star", "Create"),
+        FoodItem("Burger", R.drawable.burger, "North Star", "Grill"),
+        FoodItem("Veggie Stir Fry", R.drawable.veggie, "North Star", "Wok"),
+
+        FoodItem("Tostadas", R.drawable.tostada, "Risley", "Chef's Table"),
+        FoodItem("Poke Bowl", R.drawable.poke, "Risley", "Wok"),
+        FoodItem("Marble cake", R.drawable.marble, "Risley", "Desserts"),
+
+        FoodItem("Curry", R.drawable.curry, "Bethe Jansen", "Chef's Table"),
+        FoodItem("Ginger Soy Chicken", R.drawable.chicken, "Bethe Jansen", "Wok"),
+        FoodItem("Margherita Pizza", R.drawable.mar_pizza, "Bethe Jansen", "Pizza Station"),
+
+        FoodItem("BBQ Pulled Pork", R.drawable.pulled_pork, "Becker", "Chef's Table"),
+        FoodItem("Tiramisu", R.drawable.tiramisu, "Becker", "Desserts"),
+        FoodItem("Clam Chowder", R.drawable.chowder, "Becker", "Soup"),
+
+        FoodItem("Pad Thai", R.drawable.pad_thai, "Okenshields", "Wok"),
+        FoodItem("Grilled Cheese", R.drawable.grilled_cheese, "Okenshields", "Grill"),
+        FoodItem("Curly Fries", R.drawable.curly_fries, "Okenshields", "Grill"),
         )
 
     private var todayMatch: MatchResultDummy? = null
+    private val likedItems = mutableListOf<FoodItem>()
+
+    fun saveLikedItem(item: FoodItem) {
+        likedItems.add(item)
+    }
+
+    fun getLikedItems(): List<FoodItem> = likedItems
 
     fun setTodayMatch(match: MatchResultDummy) {
         todayMatch = match
@@ -38,6 +62,9 @@ class DiningRepo @Inject constructor(
             "Bethe Jansen" -> R.drawable.jansen
             "North Star" -> R.drawable.north_star
             "Risley" -> R.drawable.risley
+            "Becker" -> R.drawable.becker
+            "Morrison" -> R.drawable.morrison
+            "Okenshields" -> R.drawable.oakenshields
             else -> R.drawable.binge_burger
         }
         return BitmapFactory.decodeResource(context.resources, resId).asImageBitmap()
@@ -47,4 +74,64 @@ class DiningRepo @Inject constructor(
         delay(300) // simulate backend delay
         return todayMatch
     }
+
+    fun getAllDiningHalls(): List<DiningHall> {
+        return listOf(
+            DiningHall(
+                name = "Bethe Jansen",
+                campusLocation = "West Campus",
+                imageResId = R.drawable.jansen,
+                openHours = "Dinner 5:00–8:30",
+                menu = foodItems.filter { it.diningHall == "Bethe Jansen" }
+            ),
+            DiningHall(
+                name = "Becker",
+                campusLocation = "West Campus",
+                imageResId = R.drawable.becker,
+                openHours = "Dinner 5:00–8:30",
+                menu = foodItems.filter { it.diningHall == "Becker" }
+            ),
+            DiningHall(
+                name = "North Star",
+                campusLocation = "North Campus",
+                imageResId = R.drawable.north_star,
+                openHours = "Dinner 5:30–10:30",
+                menu = foodItems.filter { it.diningHall == "North Star" }
+            ),
+            DiningHall(
+                name = "Morrison",
+                campusLocation = "North Campus",
+                imageResId = R.drawable.morrison,
+                openHours = "Dinner 5:00–8:30",
+                menu = foodItems.filter { it.diningHall == "Morrison" }
+            ),
+            DiningHall(
+                name = "Risley",
+                campusLocation = "North Campus",
+                imageResId = R.drawable.risley,
+                openHours = "Dinner 5:00–7:00",
+                menu = foodItems.filter { it.diningHall == "Risley" }
+            ),
+            DiningHall(
+                name = "Okenshields",
+                campusLocation = "Central Campus",
+                imageResId = R.drawable.oakenshields,
+                openHours = "Dinner 5:00–8:30",
+                menu = foodItems.filter { it.diningHall == "Okenshields" }
+        ),
+
+        )
+    }
+
+    fun getDiningHallsByCampus(filter: String): List<DiningHall> {
+        return when (filter.lowercase()) {
+            "central" -> getAllDiningHalls().filter { it.campusLocation.contains("Central", ignoreCase = true) }
+            "north" -> getAllDiningHalls().filter { it.campusLocation.contains("North", ignoreCase = true) }
+            "west" -> getAllDiningHalls().filter { it.campusLocation.contains("West", ignoreCase = true) }
+            else -> getAllDiningHalls()
+        }
+    }
+
+
+
 }

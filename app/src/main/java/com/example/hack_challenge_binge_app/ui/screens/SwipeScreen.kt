@@ -86,7 +86,7 @@ fun SwipeScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(400.dp)
+                .height(500.dp)
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
@@ -95,7 +95,7 @@ fun SwipeScreen(
                             Color(0xFFF570E3)
                         )
                     ),
-                    shape = RoundedCornerShape(bottomStart = 80.dp, bottomEnd = 80.dp)
+                    shape = RoundedCornerShape(bottomStart = 200.dp, bottomEnd = 200.dp)
                 )
         )
 
@@ -207,7 +207,7 @@ fun SwipeScreenPreview() {
                             Color(0xFFF570E3)
                         )
                     ),
-                    shape = RoundedCornerShape(bottomStart = 70.dp, bottomEnd = 70.dp)
+                    shape = RoundedCornerShape(bottomStart = 200.dp, bottomEnd = 200.dp)
                 )
         )
 

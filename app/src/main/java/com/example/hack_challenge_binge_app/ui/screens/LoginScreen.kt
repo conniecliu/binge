@@ -48,6 +48,8 @@ import androidx.compose.ui.text.font.DeviceFontFamilyName
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.example.hack_challenge_binge_app.viewmodel.CreateAccountViewModel
+import com.example.hack_challenge_binge_app.viewmodel.WelcomeViewModel
 
 @Composable
 fun LoginScreen(
@@ -60,10 +62,17 @@ fun LoginScreen(
 
     val passwordVisible = remember { mutableStateOf(false) }
 
+    val context = LocalContext.current
+
     LaunchedEffect(uiEvent.value) {
-        uiEvent.value?.consumeSuspend { result ->
-            navHostController.navigate("home") {
-                popUpTo("login") { inclusive = true }
+        uiEvent.value?.consume { result ->
+            when (result) {
+                is LoginViewModel.LoginSuccess.Success -> {
+                    navHostController.navigate("home")
+                }
+                is LoginViewModel.LoginSuccess.Error -> {
+                    Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
@@ -116,15 +125,15 @@ fun LoginScreen(
             )
 
             TextField(
-                value = uiState.value.username,
+                value = uiState.value.email,
                 onValueChange = {newText ->
-                    viewModel.updateUsername(newText)
+                    viewModel.updateEmail(newText)
                 },
                 modifier = Modifier
                     .padding(18.dp)
                     .fillMaxWidth(),
                 placeholder = {
-                    Text("Email/Username")
+                    Text("Email")
                 },
                 shape = RoundedCornerShape(7.dp),
                 colors = TextFieldDefaults.colors(
@@ -203,8 +212,8 @@ fun LoginScreen(
     }
 }
 
-@Preview
-@Composable
-fun LoginScreenPreview(){
-    LoginScreen(rememberNavController(), LoginViewModel())
-}
+//@Preview
+//@Composable
+//fun LoginScreenPreview(){
+//    LoginScreen(rememberNavController(), LoginViewModel())
+//}

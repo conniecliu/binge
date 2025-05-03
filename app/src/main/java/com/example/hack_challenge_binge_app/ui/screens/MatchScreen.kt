@@ -85,12 +85,12 @@ fun MatchScreen(
     )
 
     LaunchedEffect(uiEvent.value) {
-        delay(3000L) // will remove after integrating backend
+        delay(3000L) // TODO: will remove after integrating backend
         viewModel.checkIfUserHasMatchToday()
 
         val fallbackProfile = BitmapFactory.decodeResource(
             context.resources,
-            R.drawable.binge_burger
+            R.drawable.cat_default_pfp
         ).asImageBitmap()
         viewModel.setUserProfileImage(fallbackProfile)
     }

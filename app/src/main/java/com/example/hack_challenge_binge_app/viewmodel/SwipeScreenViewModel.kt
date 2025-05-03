@@ -19,6 +19,7 @@ class SwipeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiStateFlow = _uiState
 
+
     private val swipeCounts = mutableMapOf<String, Int>()
     private var foodQueue = repository.getAllFoodItems()
     private var currentIndex = 0
@@ -41,6 +42,8 @@ class SwipeViewModel @Inject constructor(
     fun swipeRight() {
         val current = _uiState.value.currentFood ?: return
         swipeCounts[current.diningHall] = (swipeCounts[current.diningHall] ?: 0) + 1
+
+        repository.saveLikedItem(current)
         advanceSwipe()
     }
 

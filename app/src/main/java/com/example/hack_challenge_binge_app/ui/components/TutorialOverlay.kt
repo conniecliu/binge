@@ -66,7 +66,7 @@ fun TutorialOverlay(onTutorialDone: () -> Unit) {
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        Text("Tap anywhere to continue", color = Color.Gray, fontSize = 12.sp)
+                        Text("Tap anywhere to continue", color = Color.White, fontSize = 12.sp)
                     }
 
                     1 -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -80,7 +80,7 @@ fun TutorialOverlay(onTutorialDone: () -> Unit) {
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        Text("Tap anywhere to finish", color = Color.Gray, fontSize = 12.sp)
+                        Text("Tap anywhere to finish", color = Color.White, fontSize = 12.sp)
                     }
                 }
             }

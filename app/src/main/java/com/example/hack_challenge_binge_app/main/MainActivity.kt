@@ -30,12 +30,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.hack_challenge_binge_app.ui.screens.CreateAccountScreen
 import com.example.hack_challenge_binge_app.ui.screens.LoginScreen
 import com.example.hack_challenge_binge_app.ui.screens.HomeScreen
 import com.example.hack_challenge_binge_app.ui.screens.MatchScreen
 import com.example.hack_challenge_binge_app.ui.screens.MenuScreen
 import com.example.hack_challenge_binge_app.ui.screens.ProfileScreen
 import com.example.hack_challenge_binge_app.ui.screens.SwipeScreen
+import com.example.hack_challenge_binge_app.ui.screens.WelcomeScreen
 import com.example.hack_challenge_binge_app.ui.theme.Hack_challenge_binge_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,7 +58,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        if (currentRoute != "login" && currentRoute != null) {
+                        if (
+                            currentRoute != "login" &&
+                            currentRoute != "welcome" &&
+                            currentRoute != "create" &&
+                            currentRoute != null) {
                             NavigationBar (
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -102,18 +108,22 @@ class MainActivity : ComponentActivity() {
                     Box(modifier = Modifier.padding(innerPadding)) {
                         NavHost(
                             navController = navController,
-                            startDestination = "login"
+                            startDestination = "welcome"
                         ) {
+                            composable("welcome") {
+                                WelcomeScreen(navController)
+                            }
+
                             composable("login") {
                                 LoginScreen(navController)
                             }
+
+                            composable("create") {
+                                CreateAccountScreen(navController)
+                            }
+
                             composable("home") {
-                                HomeScreen(
-                                    navController,
-                                    onDiningClick = { dining ->
-                                        navController.navigate("menu/$dining")
-                                    }
-                                )
+                                HomeScreen(navController)
                             }
                             composable("profile") {
                                 ProfileScreen()
@@ -127,10 +137,10 @@ class MainActivity : ComponentActivity() {
                                 SwipeScreen(navController)
                             }
 
-//                            composable("menu/{dining}") { backStackEntry ->
-//                                val dining = backStackEntry.arguments?.getString("dining") ?: ""
-//                                MenuScreen(navController, diningChosen = dining)
-//                            }
+                            composable("menu") {
+                                MenuScreen()
+                            }
+
                         }
                     }
                 }

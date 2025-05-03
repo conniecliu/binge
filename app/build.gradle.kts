@@ -67,6 +67,12 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
     implementation(libs.androidx.compose.material.icons.extended)
     implementation("androidx.compose.material:material:<latest_version>")
+    // okhttp3
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // gson
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 
 }
